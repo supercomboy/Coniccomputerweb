@@ -3,7 +3,7 @@ import { SITE } from "@/data/site";
 import { SERVICES } from "@/data/services";
 import { getAllPosts } from "@/lib/posts";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
 
   const staticRoutes: MetadataRoute.Sitemap = [
@@ -22,7 +22,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }));
 
-  const postRoutes: MetadataRoute.Sitemap = getAllPosts().map((p) => ({
+  const posts = await getAllPosts();
+  const postRoutes: MetadataRoute.Sitemap = posts.map((p) => ({
     url: `${SITE.domain}/${p.slug}/`,
     lastModified: new Date(p.date),
     changeFrequency: "monthly",

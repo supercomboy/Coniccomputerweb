@@ -44,10 +44,12 @@ function ServiceIcon({ icon }: { icon: string }) {
   }
 }
 
-export default function HomePage() {
+export const revalidate = 60;
+
+export default async function HomePage() {
   const primaryServices = SERVICES.filter((s) => PRIMARY_SLUGS.includes(s.slug));
   const supportServices = SERVICES.filter((s) => SUPPORT_SLUGS.includes(s.slug));
-  const latestPosts = getAllPosts().slice(0, 2);
+  const latestPosts = (await getAllPosts()).slice(0, 2);
 
   return (
     <>

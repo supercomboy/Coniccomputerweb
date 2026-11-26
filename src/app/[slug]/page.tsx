@@ -10,22 +10,26 @@ interface PostPageProps {
   params: Promise<{ slug: string }>;
 }
 
+export const revalidate = 60;
+export const dynamicParams = true;
+
 export async function generateStaticParams() {
-  return getAllPosts().map((post) => ({ slug: post.slug }));
+  const posts = await getAllPosts();
+  return posts.map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = await getPostBySlug(slug);
   if (!post) return {};
 
   return {
-    title: `${post.title} | Conic Computer`,
+    title: post.seoTitle || `${post.title} | Conic Computer`,
     description: post.description,
     alternates: { canonical: `/${post.slug}/` },
     openGraph: {
       type: "article",
-      title: post.title,
+      title: post.seoTitle || post.title,
       description: post.description,
       publishedTime: post.date,
       images: [{ url: post.image, alt: post.imageAlt }],
@@ -59,7 +63,7 @@ const mdxComponents = {
 
 export default async function BlogPostPage({ params }: PostPageProps) {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = await getPostBySlug(slug);
   if (!post) notFound();
 
   const articleSchema = {
@@ -118,7 +122,14 @@ export default async function BlogPostPage({ params }: PostPageProps) {
         </figure>
 
         <div className="mt-8 max-w-[70ch]">
-          <MDXRemote source={post.content} components={mdxComponents} />
+          {post.format === "html" ? (
+            <div
+              className="article-content"
+              dangerouslySetInnerHTML={{ __html: post.content }}
+            />
+          ) : (
+            <MDXRemote source={post.content} components={mdxComponents} />
+          )}
         </div>
 
         {/* Bottom Direct Contact CTA */}

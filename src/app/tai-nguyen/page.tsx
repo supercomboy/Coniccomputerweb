@@ -10,8 +10,10 @@ export const metadata: Metadata = {
   alternates: { canonical: "/tai-nguyen/" },
 };
 
-export default function TaiNguyenPage() {
-  const posts = getAllPosts();
+export const revalidate = 60;
+
+export default async function TaiNguyenPage() {
+  const posts = await getAllPosts();
 
   return (
     <>

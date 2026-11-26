@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
-import { FloatingContact } from "@/components/FloatingContact";
+import { SiteChrome } from "@/components/SiteChrome";
 import { LocalBusinessJsonLd } from "@/components/JsonLd";
 import { SITE } from "@/data/site";
 
@@ -63,12 +61,7 @@ export default function RootLayout({
           Chuyển đến nội dung chính
         </a>
         <LocalBusinessJsonLd />
-        <Header />
-        <main id="main-content" className="flex-1">
-          {children}
-        </main>
-        <Footer />
-        <FloatingContact />
+        <SiteChrome>{children}</SiteChrome>
       </body>
     </html>
   );
