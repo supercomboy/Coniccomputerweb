@@ -73,11 +73,11 @@ export function Header() {
           aria-label="Trang chủ Conic Computer"
         >
           <img
-            src={SITE.logoSvg}
+            src={SITE.logoPng}
             alt="Logo Conic Computer"
-            width={156}
-            height={52}
-            className="h-10 w-auto sm:h-12"
+            width={330}
+            height={123}
+            className="h-9 w-auto object-contain sm:h-11"
           />
         </Link>
 

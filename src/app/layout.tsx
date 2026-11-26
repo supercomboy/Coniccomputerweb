@@ -42,7 +42,9 @@ export const metadata: Metadata = {
     description: SITE.description,
   },
   icons: {
-    icon: SITE.logoPng,
+    icon: SITE.iconPng,
+    shortcut: SITE.iconPng,
+    apple: SITE.iconPng,
   },
 };
 

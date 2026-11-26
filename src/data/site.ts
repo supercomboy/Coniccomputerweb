@@ -22,8 +22,9 @@ export const SITE = {
     "https://www.google.com/maps/search/?api=1&query=Conic+Computer+Chung+cu+Conic+13B+Nguyen+Van+Linh+Binh+Chanh+TP+HCM",
   crmHref: "https://coniccomputer-crm.onrender.com/",
   deviceTestHref: "https://supercomboy.github.io/mqhwtest/",
-  logoSvg: "/images/logo/conic-logo.svg",
-  logoPng: "/images/logo/conic-logo.png",
+  logoSvg: "/images/logo/logo.png",
+  logoPng: "/images/logo/logo.png",
+  iconPng: "/images/logo/icon.png",
   experienceYears: "15+",
 } as const;
 
