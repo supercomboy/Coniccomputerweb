@@ -10,14 +10,17 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { SERVICES, ServiceData } from "@/data/services";
+import { PricingItem } from "@/data/pricing";
 import { SITE } from "@/data/site";
 import { VI_COPY } from "@/i18n/vi";
 
 interface ServicePageTemplateProps {
   service: ServiceData;
+  pricing?: PricingItem[];
 }
 
-export function ServicePageTemplate({ service }: ServicePageTemplateProps) {
+export function ServicePageTemplate({ service, pricing }: ServicePageTemplateProps) {
+  const activePricing = pricing && pricing.length > 0 ? pricing : service.pricing;
   const relatedServices = SERVICES.filter((s) => s.slug !== service.slug).slice(0, 3);
 
   const breadcrumbSchema = {
@@ -184,7 +187,7 @@ export function ServicePageTemplate({ service }: ServicePageTemplateProps) {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-border-subtle text-sm">
-                    {service.pricing.map((row) => (
+                    {activePricing.map((row) => (
                       <tr key={row.service} className="hover:bg-surface-muted/60">
                         <td className="px-5 py-3.5 font-medium text-ink">{row.service}</td>
                         <td className="px-5 py-3.5 text-right font-semibold text-brand-red tabular-nums">

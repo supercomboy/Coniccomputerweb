@@ -1,5 +1,29 @@
 export type PricingCategoryKey = "laptop" | "macbook" | "pc";
 
+export type AllPricingCategoryKey =
+  | "laptop"
+  | "macbook"
+  | "pc"
+  | "cai-win"
+  | "cuu-du-lieu"
+  | "nang-cap";
+
+export interface PricingGroupMeta {
+  key: AllPricingCategoryKey;
+  label: string;
+  pageHref: string;
+  showOnHome: boolean;
+}
+
+export const ALL_PRICING_GROUPS: PricingGroupMeta[] = [
+  { key: "laptop", label: "Sửa Laptop", pageHref: "/sua-laptop/", showOnHome: true },
+  { key: "macbook", label: "Sửa MacBook", pageHref: "/sua-macbook/", showOnHome: true },
+  { key: "pc", label: "Sửa PC & Linh Kiện", pageHref: "/sua-linh-kien-pc/", showOnHome: true },
+  { key: "cai-win", label: "Cài Win & Phần Mềm", pageHref: "/cai-win-phan-mem/", showOnHome: false },
+  { key: "cuu-du-lieu", label: "Cứu Dữ Liệu", pageHref: "/cuu-du-lieu/", showOnHome: false },
+  { key: "nang-cap", label: "Nâng Cấp RAM & SSD", pageHref: "/nang-cap-may-tinh/", showOnHome: false },
+];
+
 export interface PricingItem {
   service: string;
   price: string;

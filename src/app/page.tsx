@@ -20,6 +20,7 @@ import { SITE } from "@/data/site";
 import { SERVICES } from "@/data/services";
 import { VI_COPY } from "@/i18n/vi";
 import { getAllPosts } from "@/lib/posts";
+import { getHomePricingCategories } from "@/lib/pricing";
 import { HomePricingTabs } from "@/components/HomePricingTabs";
 import { GoogleMapEmbed } from "@/components/GoogleMapEmbed";
 
@@ -50,6 +51,7 @@ export default async function HomePage() {
   const primaryServices = SERVICES.filter((s) => PRIMARY_SLUGS.includes(s.slug));
   const supportServices = SERVICES.filter((s) => SUPPORT_SLUGS.includes(s.slug));
   const latestPosts = (await getAllPosts()).slice(0, 2);
+  const pricingCategories = await getHomePricingCategories();
 
   return (
     <>
@@ -231,7 +233,7 @@ export default async function HomePage() {
               thỏa thuận.
             </p>
           </div>
-          <HomePricingTabs />
+          <HomePricingTabs categories={pricingCategories} />
         </div>
       </section>
 

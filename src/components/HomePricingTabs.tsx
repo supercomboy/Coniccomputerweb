@@ -3,13 +3,16 @@
 import { useState } from "react";
 import Link from "next/link";
 import { ArrowRight, MessageCircle, Phone } from "lucide-react";
-import { PRICING_CATEGORIES, PricingCategoryKey } from "@/data/pricing";
+import { PRICING_CATEGORIES, PricingCategory, PricingCategoryKey } from "@/data/pricing";
 import { SITE } from "@/data/site";
 
-export function HomePricingTabs() {
+interface HomePricingTabsProps {
+  categories?: PricingCategory[];
+}
+
+export function HomePricingTabs({ categories = PRICING_CATEGORIES }: HomePricingTabsProps) {
   const [activeKey, setActiveKey] = useState<PricingCategoryKey>("laptop");
-  const activeCategory =
-    PRICING_CATEGORIES.find((c) => c.key === activeKey) ?? PRICING_CATEGORIES[0];
+  const activeCategory = categories.find((c) => c.key === activeKey) ?? categories[0];
 
   return (
     <div className="mt-8">
@@ -19,7 +22,7 @@ export function HomePricingTabs() {
         role="tablist"
         aria-label="Chọn nhóm dịch vụ xem bảng giá"
       >
-        {PRICING_CATEGORIES.map((category) => {
+        {categories.map((category) => {
           const isActive = category.key === activeKey;
           return (
             <button

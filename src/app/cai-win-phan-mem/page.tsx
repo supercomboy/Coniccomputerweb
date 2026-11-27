@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getServiceBySlug } from "@/data/services";
+import { getServicePricingBySlug } from "@/lib/pricing";
 import { ServicePageTemplate } from "@/components/ServicePageTemplate";
+
+export const revalidate = 60;
 
 const SLUG = "cai-win-phan-mem";
 const service = getServiceBySlug(SLUG);
@@ -12,7 +15,8 @@ export const metadata: Metadata = {
   alternates: { canonical: `/${SLUG}/` },
 };
 
-export default function CaiWinPage() {
+export default async function CaiWinPage() {
   if (!service) notFound();
-  return <ServicePageTemplate service={service} />;
+  const pricing = await getServicePricingBySlug(SLUG);
+  return <ServicePageTemplate service={service} pricing={pricing} />;
 }
